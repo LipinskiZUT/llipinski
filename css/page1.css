@@ -20,20 +20,6 @@ h2 {
   color: #555;
   margin-bottom: 8px;
 }
-#img-chess-figures {
-  float: left;
-}
-
-#img-chess-figures img {
-  margin-left: 100px;
-  width: 500px;
-}
-
-#list-of-figures {
-  float: right;
-  margin-right: 50px;
-  justify-content: center;
-}
 
 p {
   font-family: 'Georgia', serif;
@@ -44,6 +30,7 @@ p {
 }
 
 ul {
+  display: inline;
   list-style-type: disc;
   margin-left: 20px;
 }
@@ -72,4 +59,53 @@ footer {
   text-align: center;
   color: #777;
   border-top: 2px solid #ccc;
+}
+
+@media (min-width: 350px){
+
+  #img-chess-figures {
+    clear: both;
+  }
+
+  #img-chess-figures img {
+    width: 100%;
+  }
+
+  #list-of-figures {
+    clear: both;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+}
+
+@media (min-width: 1200px) {
+
+  #container-figures {
+    width: 100%;
+    display: flex;
+  }
+
+  #img-chess-figures {
+    float: left;
+    display: flex;
+    justify-content: center;
+    width: 45%;
+  }
+
+  #img-chess-figures img {
+    margin-left: 100px;
+    margin-right: 50px;
+    width: 500px;
+  }
+
+  #list-of-figures {
+    float: right;
+    display: flex;
+    justify-content: center;
+    margin-right: 30px;
+    width: 45%;
+  }
 }
