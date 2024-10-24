@@ -1,0 +1,59 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <title>Lab1</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="css/page1.css">
+</head>
+
+<body>
+
+<header>Szachy</header>
+<main>
+  <h1>Jak grac?</h1>
+  <h2>Glowne zasady</h2>
+  <div id="rules">
+    <div id="mat" class="box">
+      <h3>Mat</h3>
+      <p>Mat w szachach to sytuacja, w której król jednego z graczy jest zagrożony zbiciem (jest "szachowany") i nie ma możliwości uniknięcia tego zagrożenia
+        żadnym legalnym ruchem. Oznacza to, że gracz nie może przesunąć króla na bezpieczne pole, zablokować ataku ani zbić figury, która szachuje.
+        Mat kończy partię, ponieważ celem gry w szachy jest właśnie doprowadzenie do zamatowania króla przeciwnika.
+        W momencie mata partia się kończy, a gracz, którego król został zamatowany, przegrywa.</p>
+    </div>
+    <div id="pat" class="box">
+      <h3>Pat</h3>
+      <p>
+        Pat w szachach to sytuacja, w której gracz nie będący w szachu nie ma możliwości wykonania legalnego ruchu, ponieważ wszystkie jego dostępne ruchy
+        prowadzą do złamania zasad, np. wystawienia swojego króla na szach. Pat jet też gdy gracze powtórzą swoją pozycję trzy razy lub gdy jednemu z graczy skończył się czas
+        a drugi nie ma odpowiedniej sił matującej. Pat kończy partię remisem, ponieważ żaden z graczy nie może kontynuować gry, mimo że król gracza nie jest zagrożony zbiciem.
+        Pat jest często sytuacją, którą gracz w gorszej pozycji może próbować wymusić, aby uniknąć przegranej.</p>
+    </div>
+    <div id="roszady" class="box">
+      <h3>Roszady</h3>
+      <p>Roszada to specjalny ruch w szachach, który pozwala graczowi jednocześnie przesunąć króla i wieżę, co ma na celu poprawę bezpieczeństwa króla i rozwinięcie wieży.
+        W roszadzie król przesuwa się o dwa pola w stronę wieży, a wieża przeskakuje nad królem i ląduje tuż obok niego.
+        Istnieją dwa rodzaje roszad: roszada krótka (w stronę wieży bliższej skrzydłu króla) oraz roszada długa (w stronę wieży po stronie hetmana).
+        Rosadę można wykonać tylko wtedy, gdy ani król, ani wieża, którą chcemy użyć, nie wykonały wcześniej ruchu, król nie znajduje się w szachu,
+        nie przechodzi przez pole atakowane przez przeciwnika oraz między królem a wieżą nie ma innych figur.</p>
+      </div>
+    </div>
+  <div>
+    <h2>Figury szachowe</h2>
+    <div id="img-chess-figures"><img id="chess-figure" src="img/chess-figures.PNG" alt="chess figures"/></div>
+    <div id="list-of-figures">
+      <ul>
+        <li>Król</li>
+        <li>Hetman</li>
+        <li>Wieża</li>
+        <li>Goniec</li>
+        <li>Skoczek</li>
+        <li>Pionek</li>
+      </ul>
+    </div>
+  </div>
+</main>
+  <footer>Strona o szachach --<a href="page2.html">Również strona o szachach</a></footer>
+</body>
+
+</html>
