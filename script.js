@@ -14,7 +14,7 @@ function saveTasks() {
 }
 
 // Funkcja do wyświetlenia zadań
-function renderTasks() {
+function draw() {
   toDoContainer.innerHTML = '';  // Wyczyść listę zadań
   tasks.forEach((task, index) => {
     const taskElement = document.createElement('div');
@@ -60,7 +60,7 @@ addButton.addEventListener('click', () => {
   if (name && (date === '' || date > today)) {
     tasks.push({ name, date, completed: false });
     saveTasks();
-    renderTasks();
+    draw();
 
     // Wyczyść pola wejściowe
     taskNameInput.value = '';
@@ -74,14 +74,14 @@ addButton.addEventListener('click', () => {
 function deleteTask(index) {
   tasks.splice(index, 1);
   saveTasks();
-  renderTasks();
+  draw();
 }
 
 // Zmiana statusu ukończenia zadania
 function toggleTaskCompletion(index) {
   tasks[index].completed = !tasks[index].completed;
   saveTasks();
-  renderTasks();
+  draw();
 }
 
 // Edycja nazwy zadania
@@ -107,7 +107,7 @@ function editTaskName(index) {
 function saveTaskNameEdit(index, newName) {
   tasks[index].name = newName.trim() || tasks[index].name;
   saveTasks();
-  renderTasks();
+  draw();
 }
 
 // Wyszukiwanie zadań
@@ -122,7 +122,7 @@ searchInput.addEventListener('input', () => {
       }
     });
   } else {
-    renderTasks();
+    draw();
   }
 });
 
@@ -167,4 +167,4 @@ function displayFilteredTask(task, index, highlightedTask) {
 }
 
 // Inicjalizacja: wczytanie zadań przy ładowaniu
-renderTasks();
+draw();
