@@ -84,31 +84,52 @@ function toggleTaskCompletion(index) {
   draw();
 }
 
-// Edycja nazwy zadania
+// Funkcja do edycji nazwy i daty zadania
 function editTaskName(index) {
   const taskElement = document.querySelectorAll('.task')[index];
   const taskNameElement = taskElement.querySelector('.task-name');
+  const taskDateElement = taskElement.querySelector('.task-date');
 
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.value = tasks[index].name;
-  input.classList.add('task-edit-input');
+  // Tworzenie elementu input dla edycji nazwy
+  const nameInput = document.createElement('input');
+  nameInput.type = 'text';
+  nameInput.value = tasks[index].name;
+  nameInput.classList.add('task-edit-input');
 
-  input.addEventListener('blur', () => saveTaskNameEdit(index, input.value));
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') input.blur();
+  // Tworzenie elementu input dla edycji daty
+  const dateInput = document.createElement('input');
+  dateInput.type = 'date';
+  dateInput.value = tasks[index].date;
+  dateInput.classList.add('task-date-input');
+
+  // Zapis edycji przy kliknięciu poza pole lub po naciśnięciu Enter
+  function saveEdits() {
+    tasks[index].name = nameInput.value.trim() || tasks[index].name;
+    tasks[index].date = dateInput.value; // Pusta data też zostanie zapisana
+
+    saveTasks(); // Zapisz do localStorage
+    draw(); // Zaktualizuj widok
+  }
+
+  // Dodajemy eventy do zapisu edycji przy zdarzeniach
+  nameInput.addEventListener('blur', saveEdits);
+  dateInput.addEventListener('blur', saveEdits);
+
+  nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') nameInput.blur();
+  });
+  dateInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') dateInput.blur();
   });
 
-  taskElement.replaceChild(input, taskNameElement);
-  input.focus();
+  // Zastąpienie elementów tekstowych inputami
+  taskElement.replaceChild(nameInput, taskNameElement);
+  taskElement.replaceChild(dateInput, taskDateElement);
+
+  // Ustawienie kursora w polu edycji nazwy zadania
+  nameInput.focus();
 }
 
-// Zapis edytowanej nazwy zadania
-function saveTaskNameEdit(index, newName) {
-  tasks[index].name = newName.trim() || tasks[index].name;
-  saveTasks();
-  draw();
-}
 
 // Wyszukiwanie zadań
 searchInput.addEventListener('input', () => {
