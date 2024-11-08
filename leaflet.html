@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maps with Leaflet</title>
+    <link rel="stylesheet" href="leaflet-1.7.1/leaflet.css" />
+    <script src="leaflet-1.7.1/leaflet-src.js"></script>
+    <script src="leaflet-1.7.1/leaflet-providers.js"></script>
+    <script src="leaflet-1.7.1/leaflet-image.js"></script>
+
+    <style>
+        .mapField{
+            width:800px;
+            height:600px;
+        }
+        #container {
+            display: flex;
+            align-items: flex-start; /* dopasowuje elementy do górnej krawędzi */
+        }
+
+        #map {
+            border: 1px solid black;
+        }
+
+        #rasterMap {
+            margin-left: 50px; /* dodaje odstęp między elementami */
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="map" class="mapField"></div>
+        <canvas id="rasterMap" class="mapField"></canvas>
+    </div>
+    <button id="getLocation">Moja Lokalizacja</button>
+    <button id="saveButton">Pobierz Mapę</button>
+    <br>
+    <script src="script.js"></script>
+</body>
+</html>
