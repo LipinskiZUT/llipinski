@@ -1,13 +1,4 @@
-# Ignoruj wszystkie pliki i foldery
-*
-
-# Nie ignoruj pliku .gitignore
-!.gitignore
-
-# Wyjątki dla konkretnych plików
-!page1.html
-!page2.html
-
-# Wyjątki dla folderów i ich zawartości
-!img/
-!css/
+/img
+/css
+page1.html
+page2.html
