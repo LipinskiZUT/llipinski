@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prognoza Pogody</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .weather-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .weather-form input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        .weather-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .weather-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .current-weather {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .forecast-table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            margin-top: 20px;
+            display: none; /* Tabela niewidoczna na początku */
+        }
+
+        .forecast-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .icon {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Prognoza Pogody</h1>
+</header>
+
+<div class="weather-form">
+    <input type="text" id="city-input" placeholder="Wpisz nazwę miejscowości">
+    <button id="get-weather-btn">Pobierz pogodę</button>
+</div>
+
+<div class="current-weather" id="current-weather">
+    <!-- Tu pojawi się dzisiejsza prognoza -->
+</div>
+
+<table class="forecast-table" id="forecast-table">
+    <tbody>
+    <tr>
+        <td id="day1"></td>
+        <td id="day2"></td>
+        <td id="day3"></td>
+        <td id="day4"></td>
+        <td id="day5"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    document.getElementById('get-weather-btn').addEventListener('click', () => {
+        const city = document.getElementById('city-input').value;
+        const apiKey = 'aedf3554e565f00ecfc9d1e30f492555';
+
+        // API URLs
+        const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
+
+        // Fetch current weather with XMLHttpRequest
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', currentWeatherUrl, true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const currentWeatherData = JSON.parse(xhr.responseText);
+                console.log(currentWeatherData);
+                const temp = currentWeatherData.main.temp;
+                const description = currentWeatherData.weather[0].description;
+
+                document.getElementById('current-weather').innerHTML =
+                    `<p>Temperatura w ${city}: ${temp}°C</p><p>Warunki: ${description}</p>`;
+            } else {
+                document.getElementById('current-weather').innerHTML =
+                    '<p>Nie udało się pobrać danych o pogodzie. Sprawdź nazwę miejscowości.</p>';
+            }
+        };
+        xhr.onerror = function () {
+            document.getElementById('current-weather').innerHTML =
+                '<p>Wystąpił błąd podczas łączenia z API.</p>';
+        };
+        xhr.send();
+
+        // Fetch 5-day forecast with Fetch API
+        fetch(forecastUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log(response);
+                return response.json();
+            })
+            .then(forecastData => {
+                // Extract forecast for the next 5 days at noon
+                const forecastTable = document.getElementById('forecast-table');
+                forecastTable.style.display = 'table';
+
+                const dailyForecasts = forecastData.list.filter(item => item.dt_txt.includes('12:00:00')).slice(0, 5);
+
+                dailyForecasts.forEach((forecast, index) => {
+                    const date = new Date(forecast.dt_txt).toLocaleDateString('pl-PL');
+                    const temp = forecast.main.temp;
+                    const description = forecast.weather[0].description;
+
+                    document.getElementById(`day${index + 1}`).innerHTML =
+                        `<p>${date}</p><p>${temp}°C</p><p>${description}</p>`;
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching forecast data:', error);
+            });
+    });
+</script>
+
+</body>
+</html>
